@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
+import { Route as learnTransitionIndexRouteImport } from './routes/(learn)/transition/index'
+import { Route as learnTableIndexRouteImport } from './routes/(learn)/table/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +30,64 @@ const DemoTableRoute = DemoTableRouteImport.update({
   path: '/demo/table',
   getParentRoute: () => rootRouteImport,
 } as any)
+const learnTransitionIndexRoute = learnTransitionIndexRouteImport.update({
+  id: '/(learn)/transition/',
+  path: '/transition/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const learnTableIndexRoute = learnTableIndexRouteImport.update({
+  id: '/(learn)/table/',
+  path: '/table/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/table': typeof learnTableIndexRoute
+  '/transition': typeof learnTransitionIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/table': typeof learnTableIndexRoute
+  '/transition': typeof learnTransitionIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/(learn)/table/': typeof learnTableIndexRoute
+  '/(learn)/transition/': typeof learnTransitionIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/demo/table' | '/demo/tanstack-query'
+  fullPaths:
+    | '/'
+    | '/demo/table'
+    | '/demo/tanstack-query'
+    | '/table'
+    | '/transition'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/demo/table' | '/demo/tanstack-query'
-  id: '__root__' | '/' | '/demo/table' | '/demo/tanstack-query'
+  to: '/' | '/demo/table' | '/demo/tanstack-query' | '/table' | '/transition'
+  id:
+    | '__root__'
+    | '/'
+    | '/demo/table'
+    | '/demo/tanstack-query'
+    | '/(learn)/table/'
+    | '/(learn)/transition/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  learnTableIndexRoute: typeof learnTableIndexRoute
+  learnTransitionIndexRoute: typeof learnTransitionIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +113,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTableRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(learn)/transition/': {
+      id: '/(learn)/transition/'
+      path: '/transition'
+      fullPath: '/transition'
+      preLoaderRoute: typeof learnTransitionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(learn)/table/': {
+      id: '/(learn)/table/'
+      path: '/table'
+      fullPath: '/table'
+      preLoaderRoute: typeof learnTableIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +134,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  learnTableIndexRoute: learnTableIndexRoute,
+  learnTransitionIndexRoute: learnTransitionIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
