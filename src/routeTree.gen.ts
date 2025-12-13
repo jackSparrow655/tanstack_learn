@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
+import { Route as learnZodIndexRouteImport } from './routes/(learn)/zod/index'
+import { Route as learnTypescriptIndexRouteImport } from './routes/(learn)/typescript/index'
 import { Route as learnTransitionIndexRouteImport } from './routes/(learn)/transition/index'
 import { Route as learnTableIndexRouteImport } from './routes/(learn)/table/index'
 
@@ -28,6 +30,16 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
 const DemoTableRoute = DemoTableRouteImport.update({
   id: '/demo/table',
   path: '/demo/table',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const learnZodIndexRoute = learnZodIndexRouteImport.update({
+  id: '/(learn)/zod/',
+  path: '/zod/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const learnTypescriptIndexRoute = learnTypescriptIndexRouteImport.update({
+  id: '/(learn)/typescript/',
+  path: '/typescript/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const learnTransitionIndexRoute = learnTransitionIndexRouteImport.update({
@@ -47,6 +59,8 @@ export interface FileRoutesByFullPath {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/table': typeof learnTableIndexRoute
   '/transition': typeof learnTransitionIndexRoute
+  '/typescript': typeof learnTypescriptIndexRoute
+  '/zod': typeof learnZodIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByTo {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/table': typeof learnTableIndexRoute
   '/transition': typeof learnTransitionIndexRoute
+  '/typescript': typeof learnTypescriptIndexRoute
+  '/zod': typeof learnZodIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,6 +78,8 @@ export interface FileRoutesById {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/(learn)/table/': typeof learnTableIndexRoute
   '/(learn)/transition/': typeof learnTransitionIndexRoute
+  '/(learn)/typescript/': typeof learnTypescriptIndexRoute
+  '/(learn)/zod/': typeof learnZodIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -71,8 +89,17 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/table'
     | '/transition'
+    | '/typescript'
+    | '/zod'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/demo/table' | '/demo/tanstack-query' | '/table' | '/transition'
+  to:
+    | '/'
+    | '/demo/table'
+    | '/demo/tanstack-query'
+    | '/table'
+    | '/transition'
+    | '/typescript'
+    | '/zod'
   id:
     | '__root__'
     | '/'
@@ -80,6 +107,8 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/(learn)/table/'
     | '/(learn)/transition/'
+    | '/(learn)/typescript/'
+    | '/(learn)/zod/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,6 +117,8 @@ export interface RootRouteChildren {
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   learnTableIndexRoute: typeof learnTableIndexRoute
   learnTransitionIndexRoute: typeof learnTransitionIndexRoute
+  learnTypescriptIndexRoute: typeof learnTypescriptIndexRoute
+  learnZodIndexRoute: typeof learnZodIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -113,6 +144,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTableRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(learn)/zod/': {
+      id: '/(learn)/zod/'
+      path: '/zod'
+      fullPath: '/zod'
+      preLoaderRoute: typeof learnZodIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(learn)/typescript/': {
+      id: '/(learn)/typescript/'
+      path: '/typescript'
+      fullPath: '/typescript'
+      preLoaderRoute: typeof learnTypescriptIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(learn)/transition/': {
       id: '/(learn)/transition/'
       path: '/transition'
@@ -136,6 +181,8 @@ const rootRouteChildren: RootRouteChildren = {
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   learnTableIndexRoute: learnTableIndexRoute,
   learnTransitionIndexRoute: learnTransitionIndexRoute,
+  learnTypescriptIndexRoute: learnTypescriptIndexRoute,
+  learnZodIndexRoute: learnZodIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

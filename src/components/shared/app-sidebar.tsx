@@ -3,8 +3,8 @@
 import * as React from 'react'
 import {
   AudioWaveform,
+  Book,
   BookOpen,
-  Bot,
   Command,
   Frame,
   GalleryVerticalEnd,
@@ -72,17 +72,17 @@ const data = {
       ],
     },
     {
-      title: 'Models',
+      title: 'Packages',
       url: '#',
-      icon: Bot,
+      icon: Book,
       items: [
         {
-          title: 'Genesis',
-          url: '#',
+          title: 'Zod',
+          url: '/zod',
         },
         {
-          title: 'Explorer',
-          url: '#',
+          title: 'Typescript',
+          url: '/typescript',
         },
         {
           title: 'Quantum',
