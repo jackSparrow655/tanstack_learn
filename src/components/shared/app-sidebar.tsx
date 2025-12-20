@@ -66,6 +66,10 @@ const data = {
           url: '/table',
         },
         {
+          title: 'Multi-Box',
+          url: '/multi-box',
+        },
+        {
           title: 'Settings',
           url: '#',
         },

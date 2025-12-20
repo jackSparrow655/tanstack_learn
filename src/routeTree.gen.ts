@@ -16,6 +16,7 @@ import { Route as learnZodIndexRouteImport } from './routes/(learn)/zod/index'
 import { Route as learnTypescriptIndexRouteImport } from './routes/(learn)/typescript/index'
 import { Route as learnTransitionIndexRouteImport } from './routes/(learn)/transition/index'
 import { Route as learnTableIndexRouteImport } from './routes/(learn)/table/index'
+import { Route as learnMultiBoxIndexRouteImport } from './routes/(learn)/multi-box/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,11 +53,17 @@ const learnTableIndexRoute = learnTableIndexRouteImport.update({
   path: '/table/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const learnMultiBoxIndexRoute = learnMultiBoxIndexRouteImport.update({
+  id: '/(learn)/multi-box/',
+  path: '/multi-box/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/multi-box': typeof learnMultiBoxIndexRoute
   '/table': typeof learnTableIndexRoute
   '/transition': typeof learnTransitionIndexRoute
   '/typescript': typeof learnTypescriptIndexRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/multi-box': typeof learnMultiBoxIndexRoute
   '/table': typeof learnTableIndexRoute
   '/transition': typeof learnTransitionIndexRoute
   '/typescript': typeof learnTypescriptIndexRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/(learn)/multi-box/': typeof learnMultiBoxIndexRoute
   '/(learn)/table/': typeof learnTableIndexRoute
   '/(learn)/transition/': typeof learnTransitionIndexRoute
   '/(learn)/typescript/': typeof learnTypescriptIndexRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/multi-box'
     | '/table'
     | '/transition'
     | '/typescript'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/multi-box'
     | '/table'
     | '/transition'
     | '/typescript'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/(learn)/multi-box/'
     | '/(learn)/table/'
     | '/(learn)/transition/'
     | '/(learn)/typescript/'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  learnMultiBoxIndexRoute: typeof learnMultiBoxIndexRoute
   learnTableIndexRoute: typeof learnTableIndexRoute
   learnTransitionIndexRoute: typeof learnTransitionIndexRoute
   learnTypescriptIndexRoute: typeof learnTypescriptIndexRoute
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof learnTableIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(learn)/multi-box/': {
+      id: '/(learn)/multi-box/'
+      path: '/multi-box'
+      fullPath: '/multi-box'
+      preLoaderRoute: typeof learnMultiBoxIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  learnMultiBoxIndexRoute: learnMultiBoxIndexRoute,
   learnTableIndexRoute: learnTableIndexRoute,
   learnTransitionIndexRoute: learnTransitionIndexRoute,
   learnTypescriptIndexRoute: learnTypescriptIndexRoute,
