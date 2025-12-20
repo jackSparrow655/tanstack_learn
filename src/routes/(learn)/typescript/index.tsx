@@ -1,9 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
+import Demo from './-components/demo'
 
 export const Route = createFileRoute('/(learn)/typescript/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <div>Hello "/(learn)/typescript/"!</div>
+  return (
+    <div className="flex-1 flex flex-col">
+      <Demo />
+    </div>
+  )
 }

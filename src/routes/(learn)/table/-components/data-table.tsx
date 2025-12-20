@@ -49,6 +49,8 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    enableColumnResizing: true,
+    columnResizeMode: 'onEnd',
     globalFilterFn: 'includesString',
     meta: {
       expandedRows,
@@ -92,9 +94,13 @@ export function DataTable<TData, TValue>({
           {/* HEADER */}
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="flex h-20">
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className="">
+                  <TableHead
+                    key={header.id}
+                    style={{ width: header.getSize() }}
+                    className="flex flex-col justify-center w-full h-full items-center px-0.5"
+                  >
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext(),
@@ -142,7 +148,10 @@ export function DataTable<TData, TValue>({
                     }}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
+                      <TableCell
+                        style={{ width: cell.column.getSize() }}
+                        key={cell.id}
+                      >
                         {flexRender(cell.column.columnDef.cell, {
                           ...cell.getContext(),
                           expandedRows,

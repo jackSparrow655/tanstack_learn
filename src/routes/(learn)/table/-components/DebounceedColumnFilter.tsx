@@ -24,7 +24,7 @@ const DebounceedColumnFilter = ({ column }: { column: Column<any, unknown> }) =>
       value={value}
       onChange={(e) => setValue(e.target.value)}
       placeholder={`Search ${column.id}...`}
-      className="mt-2 h-8"
+      className="mt-2 h-8 w-full"
     />
   );
 }

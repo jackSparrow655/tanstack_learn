@@ -12,15 +12,16 @@ export const columns: ColumnDef<User>[] = [
         .toLowerCase()
         .includes(String(filterValue).toLowerCase().trim())
     },
+    size:95
   },
-  { accessorKey: 'name', header: 'Name' },
-  { accessorKey: 'email', header: 'Email' },
-  { accessorKey: 'role', header: 'Role' },
+  { accessorKey: 'name', header: 'Name', size:125 },
+  { accessorKey: 'email', header: 'Email', size:180 },
+  { accessorKey: 'role', header: 'Role', size:120 },
 
   {
     accessorKey: 'description',
     header: 'Description',
-
+    size:580,
     cell: ({ row, table }) => {
       const meta = table.options.meta as {
         expandedRows: Record<string, boolean>
