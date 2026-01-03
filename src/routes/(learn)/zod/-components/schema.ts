@@ -1,5 +1,5 @@
 import z from 'zod'
-
+//@ts-ignore
 const step1Schema = z.object({
     name:z.string({error:"This is a required field."}).min(3, "Name should have minimun 3 charecters."),
     email:z.email({error:"email is required."}),
@@ -7,3 +7,4 @@ const step1Schema = z.object({
     country:z.enum(["India", "United State", "Ireland"]),
     phone:z.string().optional
 })
+
