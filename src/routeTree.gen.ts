@@ -17,6 +17,7 @@ import { Route as learnTypescriptIndexRouteImport } from './routes/(learn)/types
 import { Route as learnTransitionIndexRouteImport } from './routes/(learn)/transition/index'
 import { Route as learnTableIndexRouteImport } from './routes/(learn)/table/index'
 import { Route as learnMultiBoxIndexRouteImport } from './routes/(learn)/multi-box/index'
+import { Route as learnDesignPatternCompoundComponentIndexRouteImport } from './routes/(learn)/design-pattern/compound-component/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,12 @@ const learnMultiBoxIndexRoute = learnMultiBoxIndexRouteImport.update({
   path: '/multi-box/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const learnDesignPatternCompoundComponentIndexRoute =
+  learnDesignPatternCompoundComponentIndexRouteImport.update({
+    id: '/(learn)/design-pattern/compound-component/',
+    path: '/design-pattern/compound-component/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/transition': typeof learnTransitionIndexRoute
   '/typescript': typeof learnTypescriptIndexRoute
   '/zod': typeof learnZodIndexRoute
+  '/design-pattern/compound-component': typeof learnDesignPatternCompoundComponentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +86,7 @@ export interface FileRoutesByTo {
   '/transition': typeof learnTransitionIndexRoute
   '/typescript': typeof learnTypescriptIndexRoute
   '/zod': typeof learnZodIndexRoute
+  '/design-pattern/compound-component': typeof learnDesignPatternCompoundComponentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +98,7 @@ export interface FileRoutesById {
   '/(learn)/transition/': typeof learnTransitionIndexRoute
   '/(learn)/typescript/': typeof learnTypescriptIndexRoute
   '/(learn)/zod/': typeof learnZodIndexRoute
+  '/(learn)/design-pattern/compound-component/': typeof learnDesignPatternCompoundComponentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +111,7 @@ export interface FileRouteTypes {
     | '/transition'
     | '/typescript'
     | '/zod'
+    | '/design-pattern/compound-component'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +122,7 @@ export interface FileRouteTypes {
     | '/transition'
     | '/typescript'
     | '/zod'
+    | '/design-pattern/compound-component'
   id:
     | '__root__'
     | '/'
@@ -121,6 +133,7 @@ export interface FileRouteTypes {
     | '/(learn)/transition/'
     | '/(learn)/typescript/'
     | '/(learn)/zod/'
+    | '/(learn)/design-pattern/compound-component/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +145,7 @@ export interface RootRouteChildren {
   learnTransitionIndexRoute: typeof learnTransitionIndexRoute
   learnTypescriptIndexRoute: typeof learnTypescriptIndexRoute
   learnZodIndexRoute: typeof learnZodIndexRoute
+  learnDesignPatternCompoundComponentIndexRoute: typeof learnDesignPatternCompoundComponentIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof learnMultiBoxIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(learn)/design-pattern/compound-component/': {
+      id: '/(learn)/design-pattern/compound-component/'
+      path: '/design-pattern/compound-component'
+      fullPath: '/design-pattern/compound-component'
+      preLoaderRoute: typeof learnDesignPatternCompoundComponentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +225,8 @@ const rootRouteChildren: RootRouteChildren = {
   learnTransitionIndexRoute: learnTransitionIndexRoute,
   learnTypescriptIndexRoute: learnTypescriptIndexRoute,
   learnZodIndexRoute: learnZodIndexRoute,
+  learnDesignPatternCompoundComponentIndexRoute:
+    learnDesignPatternCompoundComponentIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

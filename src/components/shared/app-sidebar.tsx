@@ -12,6 +12,7 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  CodeXml 
 } from 'lucide-react'
 
 import { NavMain } from './nav-main'
@@ -73,6 +74,18 @@ const data = {
           title: 'Settings',
           url: '#',
         },
+      ],
+    },
+    {
+      title: 'Design pattern',
+      url: '#',
+      icon: CodeXml ,
+      isActive: true,
+      items: [
+        {
+          title: 'Compound component',
+          url: '/design-pattern/compound-component/',
+        }
       ],
     },
     {
