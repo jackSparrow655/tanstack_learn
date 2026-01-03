@@ -7,8 +7,8 @@ export default function Trapezium() {
       </div>
       <div
         className="
-    w-64 h-40 bg-purple-500 text-white flex items-center justify-center
-    [clip-path:polygon(20%_0%,80%_0%,100%_100%,0%_100%)]
+    w-36 h-10 bg-purple-500 text-white flex items-center justify-center
+    [clip-path:polygon(0%_0%,80%_0%,100%_50%,80%_100%,0%_100%,20%_50%)]
   "
       >
         Trapezium
