@@ -7,7 +7,7 @@ export const Route = createFileRoute('/(learn)/multi-box/')({
 })
 
 function RouteComponent() {
-  return <div className='flex-1 flex items-center      ' >
+  return <div className='flex-1 flex items-center' >
     <Trapezium/>
     <TrapeziumSVG/>
   </div>

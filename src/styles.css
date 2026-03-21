@@ -160,3 +160,43 @@ code {
   background: #777;
 }
 
+.wx-willow-theme {
+  --wx-theme-name: willow;
+  --wx-fm-background: #f2f3f7;
+  --wx-fm-box-shadow:
+    0px 1px 2px rgba(44, 47, 60, 0.06), 0px 3px 10px rgba(44, 47, 60, 0.12);
+  --wx-fm-select-background: #eaedf5;
+  --wx-fm-grid-border: 1px solid #ededf1;
+  --wx-fm-grid-header-color: #fafafb;
+  --wx-fm-button-font-color: #9fa1ae;
+  --wx-fm-toolbar-height: 56px;
+}
+
+.wx-sidebar.wx-RJbNonjJ {
+  flex: 0 0 auto;
+  width: 350px;
+  padding: 0 10px 10px;
+  /* height: 100% !important; */
+  height: auto;
+}
+
+.wx-filemanager.wx-RJbNonjJ {
+  max-width: 100vw;
+  max-height: auto;
+  overflow: auto;
+  background-color: var(--wx-fm-background);
+  flex-direction: column;
+  height: 90% !important;
+}
+
+.wx-toolbar.wx-5PZQQztG {
+  flex: 0 0 var(--wx-fm-toolbar-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  max-width: 100%;
+  background-color: var(--wx-background);
+  box-shadow: var(--wx-fm-box-shadow);
+  gap: 8px;
+}

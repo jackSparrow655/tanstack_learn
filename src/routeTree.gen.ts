@@ -17,6 +17,7 @@ import { Route as learnTypescriptIndexRouteImport } from './routes/(learn)/types
 import { Route as learnTransitionIndexRouteImport } from './routes/(learn)/transition/index'
 import { Route as learnTableIndexRouteImport } from './routes/(learn)/table/index'
 import { Route as learnMultiBoxIndexRouteImport } from './routes/(learn)/multi-box/index'
+import { Route as learnFileManagerIndexRouteImport } from './routes/(learn)/file-manager/index'
 import { Route as learnDesignPatternCompoundComponentIndexRouteImport } from './routes/(learn)/design-pattern/compound-component/index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -59,6 +60,11 @@ const learnMultiBoxIndexRoute = learnMultiBoxIndexRouteImport.update({
   path: '/multi-box/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const learnFileManagerIndexRoute = learnFileManagerIndexRouteImport.update({
+  id: '/(learn)/file-manager/',
+  path: '/file-manager/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const learnDesignPatternCompoundComponentIndexRoute =
   learnDesignPatternCompoundComponentIndexRouteImport.update({
     id: '/(learn)/design-pattern/compound-component/',
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/file-manager': typeof learnFileManagerIndexRoute
   '/multi-box': typeof learnMultiBoxIndexRoute
   '/table': typeof learnTableIndexRoute
   '/transition': typeof learnTransitionIndexRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/file-manager': typeof learnFileManagerIndexRoute
   '/multi-box': typeof learnMultiBoxIndexRoute
   '/table': typeof learnTableIndexRoute
   '/transition': typeof learnTransitionIndexRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/(learn)/file-manager/': typeof learnFileManagerIndexRoute
   '/(learn)/multi-box/': typeof learnMultiBoxIndexRoute
   '/(learn)/table/': typeof learnTableIndexRoute
   '/(learn)/transition/': typeof learnTransitionIndexRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/file-manager'
     | '/multi-box'
     | '/table'
     | '/transition'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/file-manager'
     | '/multi-box'
     | '/table'
     | '/transition'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/(learn)/file-manager/'
     | '/(learn)/multi-box/'
     | '/(learn)/table/'
     | '/(learn)/transition/'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  learnFileManagerIndexRoute: typeof learnFileManagerIndexRoute
   learnMultiBoxIndexRoute: typeof learnMultiBoxIndexRoute
   learnTableIndexRoute: typeof learnTableIndexRoute
   learnTransitionIndexRoute: typeof learnTransitionIndexRoute
@@ -206,6 +219,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof learnMultiBoxIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(learn)/file-manager/': {
+      id: '/(learn)/file-manager/'
+      path: '/file-manager'
+      fullPath: '/file-manager'
+      preLoaderRoute: typeof learnFileManagerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(learn)/design-pattern/compound-component/': {
       id: '/(learn)/design-pattern/compound-component/'
       path: '/design-pattern/compound-component'
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  learnFileManagerIndexRoute: learnFileManagerIndexRoute,
   learnMultiBoxIndexRoute: learnMultiBoxIndexRoute,
   learnTableIndexRoute: learnTableIndexRoute,
   learnTransitionIndexRoute: learnTransitionIndexRoute,

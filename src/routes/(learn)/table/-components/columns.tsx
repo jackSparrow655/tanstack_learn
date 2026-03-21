@@ -17,6 +17,7 @@ export const columns: ColumnDef<User>[] = [
   { accessorKey: 'name', header: 'Name', size:125 },
   { accessorKey: 'email', header: 'Email', size:180 },
   { accessorKey: 'role', header: 'Role', size:120 },
+  { accessorKey: 'amount', header: 'Amount', size:120 },
 
   {
     accessorKey: 'description',

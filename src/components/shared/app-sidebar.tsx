@@ -71,6 +71,10 @@ const data = {
           url: '/multi-box',
         },
         {
+          title: 'File Manager',
+          url: '/file-manager',
+        },
+        {
           title: 'Settings',
           url: '#',
         },
