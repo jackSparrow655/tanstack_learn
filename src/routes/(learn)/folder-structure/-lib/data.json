@@ -6,9 +6,82 @@
     "items": [
       {
         "id": "0.0",
-        "name": "design-patttern",
+        "name": "design-pattern",
         "isFolder": true,
-        "items": [],
+        "items": [
+          {
+            "id": "0.0.0",
+            "name": "index.tsx",
+            "isFolder": false
+          },
+          {
+            "id": "0.0.1",
+            "isFolder": true,
+            "name": "-lib",
+            "isOpen": true,
+            "items": [
+              {
+                "id": "0.0.1.0",
+                "isFolder": true,
+                "name": "hooks",
+                "isOpen": false,
+                "items": [
+                  {
+                    "id": "0.0.1.0.0",
+                    "name": "userStore.tsx",
+                    "isFolder": false
+                  },
+                  {
+                    "id": "0.0.1.0.1",
+                    "name": "projectStore.tsx",
+                    "isFolder": false
+                  },
+                  {
+                    "id": "0.0.1.0.2",
+                    "name": "dataStore.tsx",
+                    "isFolder": false
+                  }
+                ]
+              },
+              {
+                "id": "0.0.1.1",
+                "isFolder": true,
+                "name": "server-action",
+                "isOpen": false,
+                "items": [
+                  {
+                    "id": "0.0.1.1.0",
+                    "name": "mutations.tsx",
+                    "isFolder": false
+                  },
+                  {
+                    "id": "0.0.1.1.1",
+                    "name": "query-options.tsx",
+                    "isFolder": false
+                  }
+                ]
+              },
+              {
+                "id": "0.0.1.2",
+                "isFolder": true,
+                "name": "consts",
+                "isOpen": false,
+                "items": [
+                  {
+                    "id": "0.0.1.2.0",
+                    "name": "types.ts",
+                    "isFolder": false
+                  },
+                  {
+                    "id": "0.0.1.2.1",
+                    "name": "staticData.ts",
+                    "isFolder": false
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         "isOpen": true
       },
       {
