@@ -123,7 +123,7 @@ const ItemComponent = ({ item }: { item: Item }) => {
           <PopoverTrigger asChild>
             <span
               onContextMenu={handleRightClick}
-              className={`${editDeleteModalOpen && 'text-red-500'}`}
+              className={`${editDeleteModalOpen && 'text-red-500'} cursor-pointer hover:text-yellow-600 -translate-x-1`}
             >
               {item.name}
             </span>
@@ -180,25 +180,13 @@ const toggleVisibility = (
 }
 
 const ChevronIconComponnent = ({ item }: { item: FolderType }) => {
-  const { updateFolderStructureData, folderStructureData } =
-    useFolderStructureData()
-  let copyData = structuredClone(folderStructureData)
-  const toggleOpen = () => {
-    const itemIndexArr = item.id.split('.').map((item) => Number(item))
-    const numberOfIndex = itemIndexArr.length
-    const startFolder = copyData[itemIndexArr[0]] as FolderType
-    const updatedFolder = toggleVisibility(
-      startFolder,
-      itemIndexArr,
-      numberOfIndex,
-      0,
-    )
-    copyData[itemIndexArr[0]] = updatedFolder
-    updateFolderStructureData(copyData)
-  }
   return (
-    <span onClick={toggleOpen} className="cursor-pointer">
-      {item.isOpen ? <ChevronDown /> : <ChevronRightIcon />}
+    <span className="cursor-pointer">
+      {item.isOpen ? (
+        <ChevronDown size={20} className="translate-y-0.5" />
+      ) : (
+        <ChevronRightIcon size={20} className="translate-y-0.5" />
+      )}
     </span>
   )
 }
@@ -381,7 +369,11 @@ const RenderItems = ({ item }: { item: ItemType }) => {
   if (item.length === 0) {
     return null
   }
-  const { selectedFolderForAdd } = useFolderStructureData()
+  const {
+    selectedFolderForAdd,
+    folderStructureData,
+    updateFolderStructureData,
+  } = useFolderStructureData()
   const sortedItem = item.sort((a, b) => {
     // 1. Sort by fileType: "folder" before "file"
     if (a.isFolder !== b.isFolder) {
@@ -394,6 +386,22 @@ const RenderItems = ({ item }: { item: ItemType }) => {
       sensitivity: 'base', // Ignores case and accents
     })
   })
+
+  const toggleOpen = (id: string) => {
+    let copyData = structuredClone(folderStructureData)
+    const itemIndexArr = id.split('.').map((item) => Number(item))
+    const numberOfIndex = itemIndexArr.length
+    const startFolder = copyData[itemIndexArr[0]] as FolderType
+    const updatedFolder = toggleVisibility(
+      startFolder,
+      itemIndexArr,
+      numberOfIndex,
+      0,
+    )
+    copyData[itemIndexArr[0]] = updatedFolder
+    updateFolderStructureData(copyData)
+  }
+
   return (
     <div>
       {sortedItem.map((el) => {
@@ -403,8 +411,10 @@ const RenderItems = ({ item }: { item: ItemType }) => {
             return (
               <div key={el.id}>
                 <div className="flex items-center gap-1">
-                  <ChevronIconComponnent item={el} />
-                  <ItemComponent item={el} />
+                  <div onClick={() => toggleOpen(el.id)} className='flex gap-1'>
+                    <ChevronIconComponnent item={el} />
+                    <ItemComponent item={el} />
+                  </div>
                   <AddFileFolderComponent item={el} />
                 </div>
                 {el.isOpen && (
