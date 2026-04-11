@@ -12,8 +12,66 @@ export const Route = createFileRoute('/(learn)/folder-structure/')({
   component: RouteComponent,
 })
 
+const EditFileFolderInput = ({ value }: { value: string }) => {
+  const [inputVal, setInputVal] = useState(value)
+  const handleInputChange = (e: any) => {
+    setInputVal(e.target.value)
+  }
+  const {
+    updateFolderStructureData,
+    folderStructureData,
+    selectedIdForEditDelete,
+    setSelectedIdForEditDelete,
+  } = useFolderStructureData()
+  let copyData = structuredClone(folderStructureData)
+  const handleKeyDown = (e: any) => {
+    if (e.nativeEvent.key === 'Enter') {
+      const itemIndexArr =
+        selectedIdForEditDelete?.split('.').map((item) => Number(item)) ?? []
+      const numberOfIndex = itemIndexArr?.length ?? 0
+      const startFolder = copyData[itemIndexArr[0]] as FolderType
+      const updatedFolder = handleAddEditFileFolder(
+        startFolder,
+        itemIndexArr,
+        numberOfIndex,
+        0,
+        inputVal,
+        'edit',
+      )
+      copyData[itemIndexArr[0]] = updatedFolder
+      updateFolderStructureData(copyData)
+      console.log('updated = ', copyData)
+      setSelectedIdForEditDelete(null)
+    } else return
+  }
+  return (
+    <Input
+      value={inputVal}
+      onChange={handleInputChange}
+      onKeyDown={handleKeyDown}
+      className="h-6 rounded-none p-0"
+      autoFocus
+    />
+  )
+}
+
 const ItemComponent = ({ item }: { item: Item }) => {
-  return <span>{item.name}</span>
+  const { setSelectedIdForEditDelete, selectedIdForEditDelete } =
+    useFolderStructureData()
+
+  const handleRightClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    setSelectedIdForEditDelete(item.id)
+  }
+  return (
+    <>
+      {selectedIdForEditDelete === item.id ? (
+        <EditFileFolderInput value={item.name} />
+      ) : (
+        <span onContextMenu={handleRightClick}>{item.name}</span>
+      )}
+    </>
+  )
 }
 
 const toggleVisibility = (
@@ -22,7 +80,7 @@ const toggleVisibility = (
   numberOfIndex: number,
   currIndex: number,
 ): FolderType => {
-  if (currIndex === numberOfIndex-1) {
+  if (currIndex === numberOfIndex - 1) {
     item.isOpen = !item.isOpen
     return item
   }
@@ -88,45 +146,51 @@ const AddFileFolderComponent = ({ item }: { item: FolderType }) => {
   )
 }
 
-const handleAddFileFolder = (
+const handleAddEditFileFolder = (
   item: FolderType,
   indexArr: number[],
   numberOfIndex: number,
   currIndex: number,
   inputVal: string,
-  fileType: 'folder' | 'file',
+  action: 'edit' | 'add',
+  fileType?: 'folder' | 'file',
 ): FolderType => {
-  if (currIndex === numberOfIndex -1) {
-    let newId =
-      indexArr.join('.') + '.' + (item?.items?.length.toString() ?? '1')
-    let newFileOrFolder: FileType | FolderType
-    if (fileType === 'file') {
-      newFileOrFolder = {
-        id: newId,
-        name: inputVal,
-        isFolder: false,
+  if (currIndex === numberOfIndex - 1) {
+    if (action === 'add') {
+      let newId =
+        indexArr.join('.') + '.' + (item?.items?.length.toString() ?? '1')
+      let newFileOrFolder: FileType | FolderType
+      if (fileType === 'file') {
+        newFileOrFolder = {
+          id: newId,
+          name: inputVal,
+          isFolder: false,
+        }
+      } else {
+        newFileOrFolder = {
+          id: newId,
+          isFolder: true,
+          name: inputVal,
+          isOpen: true,
+          items: [],
+        }
       }
+      console.log('item.items.push', item)
+      item.items.push(newFileOrFolder)
     } else {
-      newFileOrFolder = {
-        id: newId,
-        isFolder: true,
-        name: inputVal,
-        isOpen: true,
-        items: [],
-      }
+      item.name = inputVal
     }
-    console.log('item.items.push', item)
-    item.items.push(newFileOrFolder)
     return item
   }
   const nextIndex = indexArr[currIndex + 1]
   let currItem = item?.items[nextIndex] as FolderType
-  const updatedItem = handleAddFileFolder(
+  const updatedItem = handleAddEditFileFolder(
     currItem,
     indexArr,
     numberOfIndex,
     currIndex + 1,
     inputVal,
+    action,
     fileType,
   )
   item.items[nextIndex] = updatedItem
@@ -150,12 +214,13 @@ const AddFileFolderInput = () => {
         selectedFolder?.id.split('.').map((item) => Number(item)) ?? []
       const numberOfIndex = itemIndexArr?.length ?? 0
       const startFolder = copyData[itemIndexArr[0]] as FolderType
-      const updatedFolder = handleAddFileFolder(
+      const updatedFolder = handleAddEditFileFolder(
         startFolder,
         itemIndexArr,
         numberOfIndex,
         0,
         inputVal,
+        'add',
         selectedFolder?.fileType as 'file' | 'folder',
       )
       copyData[itemIndexArr[0]] = updatedFolder
@@ -207,7 +272,7 @@ const RenderItems = ({ item }: { item: ItemType }) => {
                   <AddFileFolderComponent item={el} />
                 </div>
                 {el.isOpen && (
-                  <div className="pl-3">
+                  <div className="ml-3 border-l">
                     <RenderItems item={el.items} />
                   </div>
                 )}

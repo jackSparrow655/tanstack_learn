@@ -12,6 +12,8 @@ type State = {
   updateFolderStructureData: (data: ItemType) => void
   selectedFolder: SelectedFolderType | null
   setSelectedFolder: (data: SelectedFolderType | null) => void
+  selectedIdForEditDelete: string | null
+  setSelectedIdForEditDelete: (id: string | null) => void
 }
 
 // Create your store, which includes both state and (optionally) actions
@@ -21,4 +23,6 @@ export const useFolderStructureData = create<State>((set) => ({
     set({ folderStructureData: updatedData }),
   selectedFolder: null,
   setSelectedFolder: (data) => set({ selectedFolder: data }),
+  selectedIdForEditDelete: null,
+  setSelectedIdForEditDelete: (id) => set({ selectedIdForEditDelete: id }),
 }))
