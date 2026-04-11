@@ -210,9 +210,9 @@ const ChevronIconComponnent = ({ item }: { item: FolderType }) => {
   return (
     <span className="cursor-pointer">
       {item.isOpen ? (
-        <ChevronDown size={20} className="translate-y-0.5" />
+        <ChevronDown size={20} strokeWidth={1} className="translate-y-0.5" />
       ) : (
-        <ChevronRightIcon size={20} className="translate-y-0.5" />
+        <ChevronRightIcon size={20} strokeWidth={1} className="translate-y-0.5" />
       )}
     </span>
   )
