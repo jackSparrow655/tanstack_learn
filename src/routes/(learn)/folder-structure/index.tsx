@@ -121,21 +121,35 @@ const ItemComponent = ({ item }: { item: Item }) => {
           }}
         >
           <PopoverTrigger asChild>
-            <span onContextMenu={handleRightClick}>{item.name}</span>
+            <span
+              onContextMenu={handleRightClick}
+              className={`${editDeleteModalOpen && 'text-red-500'}`}
+            >
+              {item.name}
+            </span>
           </PopoverTrigger>
           <PopoverContent
             side="right"
-            onInteractOutside={() => setEditDeleteModalOpen(false)}
-            className="flex flex-col p-1 w-fit"
+            onInteractOutside={() => {
+              setEditDeleteModalOpen(false)
+              setSelectedIdForEditDelete(null)
+            }}
+            className="flex flex-col py-0.5 px-1 w-fit translate-y-4"
           >
             <span
               onClick={() =>
                 setSelectedIdForEditDelete({ id: item.id, action: 'edit' })
               }
+              className="cursor-pointer hover:text-red-500"
             >
               Edit name
             </span>
-            <span onClick={() => handleDelete(item.id)}>Delete</span>
+            <span
+              onClick={() => handleDelete(item.id)}
+              className="cursor-pointer hover:text-red-500"
+            >
+              Delete
+            </span>
           </PopoverContent>
         </Popover>
       )}
@@ -368,22 +382,21 @@ const RenderItems = ({ item }: { item: ItemType }) => {
     return null
   }
   const { selectedFolderForAdd } = useFolderStructureData()
-  // console.log('selected folder = ', selectedFolderForAdd)
-  // const sortedItem = item.sort((a, b) => {
-  //   // 1. Sort by fileType: "folder" before "file"
-  //   if (a.isFolder !== b.isFolder) {
-  //     return a.isFolder ? -1 : 1
-  //   }
+  const sortedItem = item.sort((a, b) => {
+    // 1. Sort by fileType: "folder" before "file"
+    if (a.isFolder !== b.isFolder) {
+      return a.isFolder ? -1 : 1
+    }
 
-  //   // 2. If types are the same, sort by fileName alphabetically
-  //   return a.name.localeCompare(b.name, undefined, {
-  //     numeric: true, // Sorts numbers naturally (e.g., "file2" before "file10")
-  //     sensitivity: 'base', // Ignores case and accents
-  //   })
-  // })
+    // 2. If types are the same, sort by fileName alphabetically
+    return a.name.localeCompare(b.name, undefined, {
+      numeric: true, // Sorts numbers naturally (e.g., "file2" before "file10")
+      sensitivity: 'base', // Ignores case and accents
+    })
+  })
   return (
     <div>
-      {item.map((el) => {
+      {sortedItem.map((el) => {
         switch (el.isFolder) {
           //folder
           case true: {
@@ -419,11 +432,11 @@ const RenderItems = ({ item }: { item: ItemType }) => {
 
 function RouteComponent() {
   const { folderStructureData } = useFolderStructureData()
-  console.log('folder structure data = ', folderStructureData)
+  const copyfolderStructureData = structuredClone(folderStructureData)
   return (
     <div className="flex-1">
       <div className="max-w-xs border h-full">
-        <RenderItems item={folderStructureData as ItemType} />
+        <RenderItems item={copyfolderStructureData as ItemType} />
       </div>
     </div>
   )
