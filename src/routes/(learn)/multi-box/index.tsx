@@ -13,6 +13,7 @@ function RouteComponent() {
       <Trapezium />
       <TrapeziumSVG />
       <Temp />
+      <ProxyTest />
     </div>
   )
 }
@@ -55,6 +56,51 @@ const Temp = () => {
   return (
     <div>
       <Button onClick={handlePrint}>Print console</Button>
+    </div>
+  )
+}
+
+const ProxyTest = () => {
+  const employee = {
+    name: 'arijit barik',
+    role: 'React developer',
+    experience: '1 years',
+    age: 20,
+  }
+
+  type EmployeeType = typeof employee
+  type keyType = keyof EmployeeType
+  type valueType = EmployeeType[keyType]
+
+  const proxy = new Proxy(employee, {
+    get(target: EmployeeType, prop: keyType) {
+      console.log('Get:', target, prop)
+      return target[`${prop}`]
+    },
+    set(target: EmployeeType, property: keyType, val: valueType) {
+      console.log('Set:', target, property, val)
+      if (property === 'age' && typeof val === 'number') {
+        if (val < 40 && val > 0) {
+          target[property] = val
+        }
+        return true
+      } else {
+        //@ts-ignore
+        target[property] = val
+        return true
+      }
+    },
+  })
+
+  const handlePrint = () => {
+    console.log('name of employee : ', proxy.name)
+    employee.role = 'Node.js developer'
+    proxy.age = 50
+    console.log('age of employee = ', proxy.age)
+  }
+  return (
+    <div>
+      <Button onClick={handlePrint}>proxy in console</Button>
     </div>
   )
 }
