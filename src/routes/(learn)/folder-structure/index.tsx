@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import type { FileType, FolderType, Item, ItemType } from './-lib/type'
+import type { FileType, FolderType, ItemType } from './-lib/type'
 import { ChevronDown, ChevronRightIcon, File, Folder } from 'lucide-react'
 import {
   useFolderStructureData,
@@ -69,13 +69,14 @@ const EditFileFolderInput = ({
   )
 }
 
-const ItemComponent = ({ item }: { item: Item }) => {
+const ItemComponent = ({ item }: { item: FileType | FolderType }) => {
   const [editDeleteModalOpen, setEditDeleteModalOpen] = useState<boolean>(false)
   const {
     setSelectedIdForEditDelete,
     selectedIdForEditDelete,
     folderStructureData,
     updateFolderStructureData,
+    setSelectedFolderForAdd,
   } = useFolderStructureData()
 
   const handleRightClick = (e: React.MouseEvent) => {
@@ -104,6 +105,15 @@ const ItemComponent = ({ item }: { item: Item }) => {
     updateFolderStructureData(copyData)
     setEditDeleteModalOpen(false)
   }
+
+  const handleSelect = (type: 'file' | 'folder') => {
+    const data: SelectedFolderTypeForAdd = {
+      id: item.id,
+      fileType: type,
+    }
+    setSelectedFolderForAdd(data)
+  }
+
   return (
     <>
       {selectedIdForEditDelete?.action === 'edit' &&
@@ -123,7 +133,7 @@ const ItemComponent = ({ item }: { item: Item }) => {
           <PopoverTrigger asChild>
             <span
               onContextMenu={handleRightClick}
-              className={`${editDeleteModalOpen && 'text-red-500'} cursor-pointer hover:text-yellow-600 -translate-x-1`}
+              className={`${editDeleteModalOpen && 'text-red-600'} cursor-pointer hover:text-red-600 -translate-x-1`}
             >
               {item.name}
             </span>
@@ -134,19 +144,36 @@ const ItemComponent = ({ item }: { item: Item }) => {
               setEditDeleteModalOpen(false)
               setSelectedIdForEditDelete(null)
             }}
-            className="flex flex-col py-0.5 px-1 w-fit translate-y-4"
+            className="flex flex-col py-0.5 pl-2 w-fit translate-y-11"
+            onClick={(e) => e.stopPropagation()}
           >
+            {item.isFolder && (
+              <>
+                <span
+                  onClick={() => handleSelect('file')}
+                  className="cursor-pointer hover:text-red-600"
+                >
+                  Add file
+                </span>
+                <span
+                  onClick={() => handleSelect('folder')}
+                  className="cursor-pointer hover:text-red-600"
+                >
+                  Add folder
+                </span>
+              </>
+            )}
             <span
               onClick={() =>
                 setSelectedIdForEditDelete({ id: item.id, action: 'edit' })
               }
-              className="cursor-pointer hover:text-red-500"
+              className="cursor-pointer hover:text-red-600"
             >
               Edit name
             </span>
             <span
               onClick={() => handleDelete(item.id)}
-              className="cursor-pointer hover:text-red-500"
+              className="cursor-pointer hover:text-red-600"
             >
               Delete
             </span>
@@ -411,7 +438,10 @@ const RenderItems = ({ item }: { item: ItemType }) => {
             return (
               <div key={el.id}>
                 <div className="flex items-center gap-1">
-                  <div onClick={() => toggleOpen(el.id)} className='flex gap-1'>
+                  <div
+                    onClick={() => toggleOpen(el.id)}
+                    className="flex gap-1 items-center"
+                  >
                     <ChevronIconComponnent item={el} />
                     <ItemComponent item={el} />
                   </div>
