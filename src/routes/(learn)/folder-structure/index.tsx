@@ -369,21 +369,21 @@ const RenderItems = ({ item }: { item: ItemType }) => {
   }
   const { selectedFolderForAdd } = useFolderStructureData()
   // console.log('selected folder = ', selectedFolderForAdd)
-  const sortedItem = item.sort((a, b) => {
-    // 1. Sort by fileType: "folder" before "file"
-    if (a.isFolder !== b.isFolder) {
-      return a.isFolder ? -1 : 1
-    }
+  // const sortedItem = item.sort((a, b) => {
+  //   // 1. Sort by fileType: "folder" before "file"
+  //   if (a.isFolder !== b.isFolder) {
+  //     return a.isFolder ? -1 : 1
+  //   }
 
-    // 2. If types are the same, sort by fileName alphabetically
-    return a.name.localeCompare(b.name, undefined, {
-      numeric: true, // Sorts numbers naturally (e.g., "file2" before "file10")
-      sensitivity: 'base', // Ignores case and accents
-    })
-  })
+  //   // 2. If types are the same, sort by fileName alphabetically
+  //   return a.name.localeCompare(b.name, undefined, {
+  //     numeric: true, // Sorts numbers naturally (e.g., "file2" before "file10")
+  //     sensitivity: 'base', // Ignores case and accents
+  //   })
+  // })
   return (
     <div>
-      {sortedItem.map((el) => {
+      {item.map((el) => {
         switch (el.isFolder) {
           //folder
           case true: {
