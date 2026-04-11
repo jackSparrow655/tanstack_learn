@@ -75,6 +75,10 @@ const data = {
           url: '/file-manager',
         },
         {
+          title: 'Folder Structure',
+          url: '/folder-structure',
+        },
+        {
           title: 'Settings',
           url: '#',
         },

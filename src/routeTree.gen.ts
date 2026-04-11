@@ -17,6 +17,7 @@ import { Route as learnTypescriptIndexRouteImport } from './routes/(learn)/types
 import { Route as learnTransitionIndexRouteImport } from './routes/(learn)/transition/index'
 import { Route as learnTableIndexRouteImport } from './routes/(learn)/table/index'
 import { Route as learnMultiBoxIndexRouteImport } from './routes/(learn)/multi-box/index'
+import { Route as learnFolderStructureIndexRouteImport } from './routes/(learn)/folder-structure/index'
 import { Route as learnFileManagerIndexRouteImport } from './routes/(learn)/file-manager/index'
 import { Route as learnDesignPatternCompoundComponentIndexRouteImport } from './routes/(learn)/design-pattern/compound-component/index'
 
@@ -60,6 +61,12 @@ const learnMultiBoxIndexRoute = learnMultiBoxIndexRouteImport.update({
   path: '/multi-box/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const learnFolderStructureIndexRoute =
+  learnFolderStructureIndexRouteImport.update({
+    id: '/(learn)/folder-structure/',
+    path: '/folder-structure/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const learnFileManagerIndexRoute = learnFileManagerIndexRouteImport.update({
   id: '/(learn)/file-manager/',
   path: '/file-manager/',
@@ -77,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/file-manager': typeof learnFileManagerIndexRoute
+  '/folder-structure': typeof learnFolderStructureIndexRoute
   '/multi-box': typeof learnMultiBoxIndexRoute
   '/table': typeof learnTableIndexRoute
   '/transition': typeof learnTransitionIndexRoute
@@ -89,6 +97,7 @@ export interface FileRoutesByTo {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/file-manager': typeof learnFileManagerIndexRoute
+  '/folder-structure': typeof learnFolderStructureIndexRoute
   '/multi-box': typeof learnMultiBoxIndexRoute
   '/table': typeof learnTableIndexRoute
   '/transition': typeof learnTransitionIndexRoute
@@ -102,6 +111,7 @@ export interface FileRoutesById {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/(learn)/file-manager/': typeof learnFileManagerIndexRoute
+  '/(learn)/folder-structure/': typeof learnFolderStructureIndexRoute
   '/(learn)/multi-box/': typeof learnMultiBoxIndexRoute
   '/(learn)/table/': typeof learnTableIndexRoute
   '/(learn)/transition/': typeof learnTransitionIndexRoute
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/file-manager'
+    | '/folder-structure'
     | '/multi-box'
     | '/table'
     | '/transition'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/file-manager'
+    | '/folder-structure'
     | '/multi-box'
     | '/table'
     | '/transition'
@@ -140,6 +152,7 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/(learn)/file-manager/'
+    | '/(learn)/folder-structure/'
     | '/(learn)/multi-box/'
     | '/(learn)/table/'
     | '/(learn)/transition/'
@@ -153,6 +166,7 @@ export interface RootRouteChildren {
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   learnFileManagerIndexRoute: typeof learnFileManagerIndexRoute
+  learnFolderStructureIndexRoute: typeof learnFolderStructureIndexRoute
   learnMultiBoxIndexRoute: typeof learnMultiBoxIndexRoute
   learnTableIndexRoute: typeof learnTableIndexRoute
   learnTransitionIndexRoute: typeof learnTransitionIndexRoute
@@ -219,6 +233,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof learnMultiBoxIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(learn)/folder-structure/': {
+      id: '/(learn)/folder-structure/'
+      path: '/folder-structure'
+      fullPath: '/folder-structure'
+      preLoaderRoute: typeof learnFolderStructureIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(learn)/file-manager/': {
       id: '/(learn)/file-manager/'
       path: '/file-manager'
@@ -241,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   learnFileManagerIndexRoute: learnFileManagerIndexRoute,
+  learnFolderStructureIndexRoute: learnFolderStructureIndexRoute,
   learnMultiBoxIndexRoute: learnMultiBoxIndexRoute,
   learnTableIndexRoute: learnTableIndexRoute,
   learnTransitionIndexRoute: learnTransitionIndexRoute,

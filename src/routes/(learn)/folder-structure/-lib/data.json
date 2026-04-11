@@ -1,0 +1,30 @@
+[
+  {
+    "id": "0",
+    "name": "route",
+    "isFolder": true,
+    "items": [
+      {
+        "id": "0.0",
+        "name": "design-patttern",
+        "isFolder": true,
+        "items": [],
+        "isOpen": true
+      },
+      {
+        "id": "0.1",
+        "name": "file manager",
+        "isFolder": true,
+        "items": [
+          {
+            "id": "0.1.0",
+            "name": "index.tsx",
+            "isFolder": false
+          }
+        ],
+        "isOpen": true
+      }
+    ],
+    "isOpen": true
+  }
+]
